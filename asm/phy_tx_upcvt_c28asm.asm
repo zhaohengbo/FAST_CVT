@@ -10,6 +10,7 @@ _PHY_txUpCvt_c28asm:
 	MOVL         XAR6, #_PHY_rxDnCvtLut	
 	MOV          AL, *+XAR4[0]
 	MOV          AR0, AL
+_phy_txUpCvt_loop:
 	MOVL         ACC, *+XAR6[AR0]
 	MOV          T, AH
 	MPY          P, T, *+XAR7[1]
@@ -21,7 +22,7 @@ _PHY_txUpCvt_c28asm:
 	ADDB         XAR7, #2
 	ADDB         XAR0, #2
 	AND          AR0, #0x01ff	
-	BANZ         -14,AR2--	
+	BANZ         _phy_txUpCvt_loop,AR2--	
 	MOV          AL, AR0
 	MOV          *+XAR4[0], AL
 	SPM          #0

@@ -19,6 +19,7 @@ _PHY_firCplxInUp32_c28asm:
 	ADDB         AL, #-1
 	MOVZ         AR5, AL
 	MOVZ         AR0, @AR5
+_phy_firCplxInUp32_loop1:
 	ZAPA         
 	DMAC         ACC:P, *AR6%++, *XAR7++
 	DMAC         ACC:P, *AR6%++, *XAR7++
@@ -29,10 +30,10 @@ _PHY_firCplxInUp32_c28asm:
 	ADD          ACC, #1024
 	MOVH         *XAR3++, ACC << 5
 	MOV          *XAR3++, AR4
-	BANZ         -16,AR5--
+	BANZ         _phy_firCplxInUp32_loop1,AR5--
 	ADDB         XAR7, #2
 	MOV          AR5, AR0
-	BANZ         -20,AR2--
+	BANZ         _phy_firCplxInUp32_loop1,AR2--
 	SPM          #0
 	SUBB         SP, #2
 	MOVL         XAR3, *--SP

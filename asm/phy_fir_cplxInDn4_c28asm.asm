@@ -19,6 +19,7 @@ _PHY_firCplxInDn4_c28asm:
 	MOVZ         AR1, AL
 	SUBB         XAR1, #2
 	MOVL         XAR0, XAR7
+_phy_firCplxInDn4_loop:
 	ZAPA         
 	RPT          AR5
 	||DMAC       ACC:P, *AR6%++, *XAR7++
@@ -32,7 +33,7 @@ _PHY_firCplxInDn4_c28asm:
 	SFR          ACC, 10
 	MOV          *XAR3++, AL
 	MOV          *XAR3++, AR4
-	BANZ         -16,AR2--
+	BANZ         _phy_firCplxInDn4_loop,AR2--
 	SPM          #0
 	SUBB         SP, #2
 	MOVL         XAR3, *--SP

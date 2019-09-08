@@ -15,13 +15,14 @@ _PHY_rxDnCvt_c28asm:
 	ADD          ACC, *+XAR4[0]
 	ADD          ACC, *+XAR4[0]
 	MOVL         XAR6, ACC
+_phy_rxDnCvt_loop:
 	MOV          T, *+XAR7[0]
 	MPY          ACC, T, *AR6%++
 	MOVH         *XAR3++, ACC << 4
 	MOV          T, *XAR7++
 	MPY          ACC, T, *AR6%++
 	MOVH         *XAR3++, ACC << 4
-	BANZ         -8,AR2--
+	BANZ         _phy_rxDnCvt_loop,AR2--
 	MOVL         XAR5, #_PHY_rxDnCvtLut
 	MOVL         ACC, XAR6
 	SUBL         ACC, XAR5
